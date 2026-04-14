@@ -767,8 +767,8 @@ export default function App() {
     <div style={{
       minHeight:"100vh",
       background:"radial-gradient(ellipse at 50% 20%,#1a110c 0%,#0d0906 50%,#060403 100%)",
-      display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
-      fontFamily:"'Newsreader',Georgia,serif",color:"#f0ebe4",position:"relative",padding:"40px 20px",
+      display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"flex-start",
+      fontFamily:"'Newsreader',Georgia,serif",color:"#f0ebe4",position:"relative",paddingTop:"clamp(60px, 15vh, 140px)",paddingBottom:40,paddingLeft:20,paddingRight:20,
     }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,700;1,6..72,400;1,6..72,700&family=Azeret+Mono:wght@300;400;500&display=swap');
