@@ -807,78 +807,132 @@ export default function App() {
       <div style={{position:"fixed",inset:0,pointerEvents:"none",zIndex:0,overflow:"hidden"}}>
         <svg style={{position:"absolute",inset:0,width:"100%",height:"100%"}} viewBox="0 0 420 900" preserveAspectRatio="xMidYMid slice">
 
-          {/* ── Constellation cluster: top-left ── */}
-          <circle cx="60" cy="80" r="1.5" fill="#e8734a" opacity=".4">
-            <animate attributeName="opacity" values=".15;.5;.15" dur="4s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="95" cy="110" r="1" fill="#e8734a" opacity=".3">
-            <animate attributeName="opacity" values=".1;.4;.1" dur="3.5s" begin=".5s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="75" cy="140" r="1.2" fill="#e8734a" opacity=".25"/>
-          <circle cx="115" cy="90" r=".8" fill="#e8734a" opacity=".35">
-            <animate attributeName="opacity" values=".15;.45;.15" dur="5s" begin="1s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="45" cy="120" r=".6" fill="#e8734a" opacity=".2"/>
-          <line x1="60" y1="80" x2="95" y2="110" stroke="#e8734a" strokeWidth=".4" opacity=".1"/>
-          <line x1="95" y1="110" x2="75" y2="140" stroke="#e8734a" strokeWidth=".4" opacity=".1"/>
-          <line x1="95" y1="110" x2="115" y2="90" stroke="#e8734a" strokeWidth=".4" opacity=".1"/>
-          <line x1="60" y1="80" x2="45" y2="120" stroke="#e8734a" strokeWidth=".3" opacity=".07"/>
+          {/* ── ARIES ♈ — top-left ── */}
+          <g opacity=".7">
+            <circle cx="45" cy="70" r="2.5" fill="#e8734a"><animate attributeName="opacity" values=".3;.7;.3" dur="4s" repeatCount="indefinite"/></circle>
+            <circle cx="65" cy="85" r="1.8" fill="#e8734a" opacity=".5"/>
+            <circle cx="80" cy="105" r="2" fill="#e8734a" opacity=".45"><animate attributeName="opacity" values=".2;.55;.2" dur="3.5s" begin=".5s" repeatCount="indefinite"/></circle>
+            <circle cx="95" cy="95" r="1.5" fill="#e8734a" opacity=".4"/>
+            <line x1="45" y1="70" x2="65" y2="85" stroke="#e8734a" strokeWidth=".7" opacity=".2"/>
+            <line x1="65" y1="85" x2="80" y2="105" stroke="#e8734a" strokeWidth=".7" opacity=".2"/>
+            <line x1="80" y1="105" x2="95" y2="95" stroke="#e8734a" strokeWidth=".6" opacity=".18"/>
+          </g>
 
-          {/* ── Constellation cluster: top-right ── */}
-          <circle cx="330" cy="150" r="1.2" fill="#e8734a" opacity=".3">
-            <animate attributeName="opacity" values=".1;.4;.1" dur="4.5s" begin=".3s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="360" cy="180" r="1" fill="#e8734a" opacity=".25"/>
-          <circle cx="345" cy="120" r=".8" fill="#e8734a" opacity=".2">
-            <animate attributeName="opacity" values=".1;.35;.1" dur="3s" begin="1.5s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="380" cy="145" r=".6" fill="#e8734a" opacity=".15"/>
-          <line x1="330" y1="150" x2="360" y2="180" stroke="#e8734a" strokeWidth=".35" opacity=".08"/>
-          <line x1="330" y1="150" x2="345" y2="120" stroke="#e8734a" strokeWidth=".35" opacity=".08"/>
-          <line x1="345" y1="120" x2="380" y2="145" stroke="#e8734a" strokeWidth=".3" opacity=".06"/>
+          {/* ── LEO ♌ — top-right ── */}
+          <g opacity=".65">
+            <circle cx="340" cy="80" r="2.8" fill="#e8734a"><animate attributeName="opacity" values=".25;.6;.25" dur="4.5s" begin=".3s" repeatCount="indefinite"/></circle>
+            <circle cx="355" cy="105" r="1.5" fill="#e8734a" opacity=".45"/>
+            <circle cx="370" cy="90" r="1.8" fill="#e8734a" opacity=".4"/>
+            <circle cx="385" cy="110" r="1.2" fill="#e8734a" opacity=".35"/>
+            <circle cx="365" cy="130" r="2" fill="#e8734a" opacity=".5"><animate attributeName="opacity" values=".2;.5;.2" dur="3s" begin="1s" repeatCount="indefinite"/></circle>
+            <circle cx="345" cy="140" r="1.5" fill="#e8734a" opacity=".35"/>
+            <line x1="340" y1="80" x2="355" y2="105" stroke="#e8734a" strokeWidth=".7" opacity=".2"/>
+            <line x1="355" y1="105" x2="370" y2="90" stroke="#e8734a" strokeWidth=".7" opacity=".2"/>
+            <line x1="370" y1="90" x2="385" y2="110" stroke="#e8734a" strokeWidth=".6" opacity=".18"/>
+            <line x1="355" y1="105" x2="365" y2="130" stroke="#e8734a" strokeWidth=".6" opacity=".18"/>
+            <line x1="365" y1="130" x2="345" y2="140" stroke="#e8734a" strokeWidth=".5" opacity=".15"/>
+          </g>
 
-          {/* ── Constellation cluster: bottom-left ── */}
-          <circle cx="70" cy="720" r="1" fill="#e8734a" opacity=".2">
-            <animate attributeName="opacity" values=".1;.3;.1" dur="5s" begin="2s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="100" cy="750" r=".8" fill="#e8734a" opacity=".15"/>
-          <circle cx="50" cy="760" r="1.2" fill="#e8734a" opacity=".25"/>
-          <circle cx="85" cy="690" r=".6" fill="#e8734a" opacity=".18"/>
-          <line x1="70" y1="720" x2="100" y2="750" stroke="#e8734a" strokeWidth=".3" opacity=".07"/>
-          <line x1="70" y1="720" x2="50" y2="760" stroke="#e8734a" strokeWidth=".3" opacity=".07"/>
-          <line x1="70" y1="720" x2="85" y2="690" stroke="#e8734a" strokeWidth=".25" opacity=".06"/>
+          {/* ── SCORPIO ♏ — mid-left ── */}
+          <g opacity=".6">
+            <circle cx="20" cy="350" r="2" fill="#e8734a"><animate attributeName="opacity" values=".2;.5;.2" dur="5s" begin="1.5s" repeatCount="indefinite"/></circle>
+            <circle cx="35" cy="370" r="1.5" fill="#e8734a" opacity=".4"/>
+            <circle cx="50" cy="365" r="1.8" fill="#e8734a" opacity=".45"/>
+            <circle cx="65" cy="380" r="1.2" fill="#e8734a" opacity=".35"/>
+            <circle cx="75" cy="395" r="2" fill="#e8734a" opacity=".4"/>
+            <circle cx="60" cy="410" r="1.5" fill="#e8734a" opacity=".35"><animate attributeName="opacity" values=".15;.45;.15" dur="4s" begin="2s" repeatCount="indefinite"/></circle>
+            <circle cx="45" cy="420" r="1.8" fill="#e8734a" opacity=".4"/>
+            <circle cx="55" cy="435" r="1.2" fill="#e8734a" opacity=".3"/>
+            <circle cx="70" cy="440" r="1.5" fill="#e8734a" opacity=".35"/>
+            <line x1="20" y1="350" x2="35" y2="370" stroke="#e8734a" strokeWidth=".6" opacity=".18"/>
+            <line x1="35" y1="370" x2="50" y2="365" stroke="#e8734a" strokeWidth=".6" opacity=".18"/>
+            <line x1="50" y1="365" x2="65" y2="380" stroke="#e8734a" strokeWidth=".6" opacity=".18"/>
+            <line x1="65" y1="380" x2="75" y2="395" stroke="#e8734a" strokeWidth=".5" opacity=".15"/>
+            <line x1="75" y1="395" x2="60" y2="410" stroke="#e8734a" strokeWidth=".5" opacity=".15"/>
+            <line x1="60" y1="410" x2="45" y2="420" stroke="#e8734a" strokeWidth=".5" opacity=".15"/>
+            <line x1="45" y1="420" x2="55" y2="435" stroke="#e8734a" strokeWidth=".5" opacity=".12"/>
+            <line x1="55" y1="435" x2="70" y2="440" stroke="#e8734a" strokeWidth=".5" opacity=".12"/>
+          </g>
 
-          {/* ── Constellation cluster: bottom-right ── */}
-          <circle cx="350" cy="700" r="1.3" fill="#e8734a" opacity=".3">
-            <animate attributeName="opacity" values=".1;.35;.1" dur="3.8s" begin=".8s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="370" cy="730" r=".7" fill="#e8734a" opacity=".18"/>
-          <circle cx="335" cy="740" r=".9" fill="#e8734a" opacity=".2"/>
-          <circle cx="385" cy="710" r=".5" fill="#e8734a" opacity=".12"/>
-          <line x1="350" y1="700" x2="370" y2="730" stroke="#e8734a" strokeWidth=".3" opacity=".07"/>
-          <line x1="350" y1="700" x2="335" y2="740" stroke="#e8734a" strokeWidth=".3" opacity=".07"/>
-          <line x1="350" y1="700" x2="385" y2="710" stroke="#e8734a" strokeWidth=".25" opacity=".05"/>
+          {/* ── GEMINI ♊ — mid-right ── */}
+          <g opacity=".6">
+            <circle cx="370" cy="380" r="2.2" fill="#e8734a"><animate attributeName="opacity" values=".2;.55;.2" dur="4.2s" begin=".8s" repeatCount="indefinite"/></circle>
+            <circle cx="385" cy="400" r="1.5" fill="#e8734a" opacity=".4"/>
+            <circle cx="395" cy="420" r="1.8" fill="#e8734a" opacity=".45"/>
+            <circle cx="375" cy="430" r="1.2" fill="#e8734a" opacity=".3"/>
+            <circle cx="360" cy="405" r="2" fill="#e8734a" opacity=".4"/>
+            <circle cx="350" cy="425" r="1.5" fill="#e8734a" opacity=".35"/>
+            <line x1="370" y1="380" x2="385" y2="400" stroke="#e8734a" strokeWidth=".6" opacity=".18"/>
+            <line x1="385" y1="400" x2="395" y2="420" stroke="#e8734a" strokeWidth=".6" opacity=".18"/>
+            <line x1="370" y1="380" x2="360" y2="405" stroke="#e8734a" strokeWidth=".6" opacity=".18"/>
+            <line x1="360" y1="405" x2="350" y2="425" stroke="#e8734a" strokeWidth=".5" opacity=".15"/>
+            <line x1="385" y1="400" x2="360" y2="405" stroke="#e8734a" strokeWidth=".5" opacity=".12"/>
+            <line x1="395" y1="420" x2="375" y2="430" stroke="#e8734a" strokeWidth=".5" opacity=".12"/>
+          </g>
 
-          {/* ── Constellation cluster: mid-left ── */}
-          <circle cx="35" cy="400" r=".9" fill="#e8734a" opacity=".2">
-            <animate attributeName="opacity" values=".08;.25;.08" dur="4.2s" begin="1.2s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="55" cy="380" r=".6" fill="#e8734a" opacity=".15"/>
-          <circle cx="25" cy="430" r=".7" fill="#e8734a" opacity=".12"/>
-          <line x1="35" y1="400" x2="55" y2="380" stroke="#e8734a" strokeWidth=".25" opacity=".06"/>
-          <line x1="35" y1="400" x2="25" y2="430" stroke="#e8734a" strokeWidth=".25" opacity=".06"/>
+          {/* ── PISCES ♓ — bottom-left ── */}
+          <g opacity=".6">
+            <circle cx="30" cy="680" r="1.8" fill="#e8734a"><animate attributeName="opacity" values=".2;.5;.2" dur="3.8s" begin="2s" repeatCount="indefinite"/></circle>
+            <circle cx="50" cy="695" r="1.5" fill="#e8734a" opacity=".4"/>
+            <circle cx="70" cy="690" r="2" fill="#e8734a" opacity=".45"/>
+            <circle cx="85" cy="710" r="1.2" fill="#e8734a" opacity=".35"/>
+            <circle cx="65" cy="725" r="1.8" fill="#e8734a" opacity=".4"/>
+            <circle cx="45" cy="730" r="1.5" fill="#e8734a" opacity=".35"><animate attributeName="opacity" values=".15;.4;.15" dur="5s" begin="1s" repeatCount="indefinite"/></circle>
+            <circle cx="55" cy="750" r="1.2" fill="#e8734a" opacity=".3"/>
+            <line x1="30" y1="680" x2="50" y2="695" stroke="#e8734a" strokeWidth=".6" opacity=".18"/>
+            <line x1="50" y1="695" x2="70" y2="690" stroke="#e8734a" strokeWidth=".6" opacity=".18"/>
+            <line x1="70" y1="690" x2="85" y2="710" stroke="#e8734a" strokeWidth=".5" opacity=".15"/>
+            <line x1="70" y1="690" x2="65" y2="725" stroke="#e8734a" strokeWidth=".5" opacity=".15"/>
+            <line x1="65" y1="725" x2="45" y2="730" stroke="#e8734a" strokeWidth=".5" opacity=".12"/>
+            <line x1="45" y1="730" x2="55" y2="750" stroke="#e8734a" strokeWidth=".5" opacity=".12"/>
+          </g>
+
+          {/* ── SAGITTARIUS ♐ — bottom-right ── */}
+          <g opacity=".65">
+            <circle cx="340" cy="700" r="2.5" fill="#e8734a"><animate attributeName="opacity" values=".25;.6;.25" dur="4s" begin="1.2s" repeatCount="indefinite"/></circle>
+            <circle cx="360" cy="685" r="1.5" fill="#e8734a" opacity=".4"/>
+            <circle cx="375" cy="705" r="2" fill="#e8734a" opacity=".45"/>
+            <circle cx="390" cy="720" r="1.2" fill="#e8734a" opacity=".35"/>
+            <circle cx="365" cy="730" r="1.8" fill="#e8734a" opacity=".4"/>
+            <circle cx="350" cy="745" r="1.5" fill="#e8734a" opacity=".35"/>
+            <circle cx="380" cy="740" r="1" fill="#e8734a" opacity=".25"/>
+            <line x1="340" y1="700" x2="360" y2="685" stroke="#e8734a" strokeWidth=".7" opacity=".2"/>
+            <line x1="360" y1="685" x2="375" y2="705" stroke="#e8734a" strokeWidth=".7" opacity=".2"/>
+            <line x1="375" y1="705" x2="390" y2="720" stroke="#e8734a" strokeWidth=".6" opacity=".18"/>
+            <line x1="375" y1="705" x2="365" y2="730" stroke="#e8734a" strokeWidth=".6" opacity=".18"/>
+            <line x1="365" y1="730" x2="350" y2="745" stroke="#e8734a" strokeWidth=".5" opacity=".15"/>
+            <line x1="365" y1="730" x2="380" y2="740" stroke="#e8734a" strokeWidth=".5" opacity=".12"/>
+          </g>
+
+          {/* ── ORION (bonus — the hunter, universally recognizable) — center-top ── */}
+          <g opacity=".5">
+            <circle cx="220" cy="200" r="1.5" fill="#e8734a" opacity=".35"/>
+            <circle cx="240" cy="215" r="2" fill="#e8734a" opacity=".4"><animate attributeName="opacity" values=".2;.5;.2" dur="3.5s" begin="2.5s" repeatCount="indefinite"/></circle>
+            <circle cx="230" cy="235" r="1.2" fill="#e8734a" opacity=".3"/>
+            <circle cx="235" cy="225" r="1" fill="#e8734a" opacity=".35"/>
+            <circle cx="225" cy="225" r="1" fill="#e8734a" opacity=".35"/>
+            <circle cx="250" cy="245" r="1.5" fill="#e8734a" opacity=".3"/>
+            <circle cx="215" cy="250" r="1.5" fill="#e8734a" opacity=".3"/>
+            <line x1="220" y1="200" x2="240" y2="215" stroke="#e8734a" strokeWidth=".5" opacity=".12"/>
+            <line x1="225" y1="225" x2="235" y2="225" stroke="#e8734a" strokeWidth=".6" opacity=".15"/>
+            <line x1="230" y1="225" x2="230" y2="235" stroke="#e8734a" strokeWidth=".5" opacity=".12"/>
+            <line x1="240" y1="215" x2="250" y2="245" stroke="#e8734a" strokeWidth=".5" opacity=".12"/>
+            <line x1="220" y1="200" x2="215" y2="250" stroke="#e8734a" strokeWidth=".5" opacity=".1"/>
+          </g>
 
           {/* ── Scattered lone stars ── */}
-          <circle cx="180" cy="50" r=".5" fill="#e8734a" opacity=".12"/>
-          <circle cx="300" cy="300" r=".4" fill="#e8734a" opacity=".1"/>
-          <circle cx="390" cy="450" r=".6" fill="#e8734a" opacity=".1"/>
-          <circle cx="30" cy="600" r=".4" fill="#e8734a" opacity=".07"/>
-          <circle cx="250" cy="820" r=".5" fill="#e8734a" opacity=".08"/>
-          <circle cx="160" cy="850" r=".4" fill="#e8734a" opacity=".06"/>
-          <circle cx="400" cy="350" r=".3" fill="#e8734a" opacity=".08"/>
-          <circle cx="15" cy="250" r=".5" fill="#e8734a" opacity=".1">
-            <animate attributeName="opacity" values=".05;.15;.05" dur="6s" begin="3s" repeatCount="indefinite"/>
-          </circle>
+          <circle cx="180" cy="50" r="1" fill="#e8734a" opacity=".2"/>
+          <circle cx="300" cy="300" r=".8" fill="#e8734a" opacity=".18"/>
+          <circle cx="150" cy="500" r=".7" fill="#e8734a" opacity=".15"/>
+          <circle cx="200" cy="600" r=".6" fill="#e8734a" opacity=".12"/>
+          <circle cx="400" cy="550" r=".8" fill="#e8734a" opacity=".15"/>
+          <circle cx="250" cy="820" r="1" fill="#e8734a" opacity=".18"/>
+          <circle cx="160" cy="850" r=".8" fill="#e8734a" opacity=".15"/>
+          <circle cx="15" cy="250" r="1" fill="#e8734a" opacity=".2"><animate attributeName="opacity" values=".1;.3;.1" dur="6s" begin="3s" repeatCount="indefinite"/></circle>
+          <circle cx="130" cy="160" r=".6" fill="#e8734a" opacity=".12"/>
+          <circle cx="280" cy="550" r=".8" fill="#e8734a" opacity=".15"/>
+          <circle cx="100" cy="580" r=".6" fill="#e8734a" opacity=".1"/>
+          <circle cx="310" cy="480" r=".7" fill="#e8734a" opacity=".12"/>
         </svg>
       </div>
 
