@@ -715,8 +715,10 @@ export default function App() {
   const [step, setStep] = useState(0);
   const [holding, setHolding] = useState(false);
   const [holdProgress, setHoldProgress] = useState(0);
+  const [shareStatus, setShareStatus] = useState(null); // null | "copying" | "copied" | "shared"
   const holdTimer = useRef(null);
   const holdStart = useRef(null);
+  const cardRef = useRef(null);
   const HOLD_DURATION = 1200; // ms to hold
 
   const yC = rds.filter(r=>r.verdict==="yes").length;
@@ -761,6 +763,92 @@ export default function App() {
     setHolding(false);
     setHoldProgress(0);
     if(holdTimer.current) cancelAnimationFrame(holdTimer.current);
+  };
+
+  const shareSign = async () => {
+    if(!cardRef.current || !sign) return;
+    setShareStatus("copying");
+    try {
+      // Build a canvas manually — no external lib needed
+      const card = cardRef.current;
+      const w = 600, h = 400;
+      const canvas = document.createElement("canvas");
+      canvas.width = w * 2; canvas.height = h * 2;
+      const ctx = canvas.getContext("2d");
+      ctx.scale(2, 2);
+
+      // Background
+      const bg = ctx.createRadialGradient(300, 200, 0, 300, 200, 350);
+      bg.addColorStop(0, "#1a110c"); bg.addColorStop(1, "#060403");
+      ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
+
+      // Card bg
+      ctx.fillStyle = "rgba(232,115,74,0.03)";
+      ctx.beginPath(); ctx.roundRect(40, 30, 520, 340, 20); ctx.fill();
+      ctx.strokeStyle = "rgba(232,115,74,0.1)"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.roundRect(40, 30, 520, 340, 20); ctx.stroke();
+
+      // Quote
+      ctx.fillStyle = "#f0ebe4";
+      ctx.font = "italic 22px 'Cormorant Garamond', Georgia, serif";
+      ctx.textAlign = "center";
+      const quoteText = `"${sign.text}"`;
+      const words = quoteText.split(" ");
+      let lines = []; let line = "";
+      for (const word of words) {
+        const test = line + word + " ";
+        if (ctx.measureText(test).width > 460 && line) { lines.push(line.trim()); line = word + " "; }
+        else { line = test; }
+      }
+      lines.push(line.trim());
+      const startY = 160 - (lines.length * 15);
+      lines.forEach((l, i) => { ctx.fillText(l, 300, startY + i * 32); });
+
+      // Source
+      ctx.fillStyle = "rgba(232,115,74,0.55)";
+      ctx.font = "400 12px 'Cinzel', serif";
+      ctx.letterSpacing = "2px";
+      ctx.fillText(`— ${sign.source}`, 300, startY + lines.length * 32 + 24);
+
+      // Branding
+      ctx.fillStyle = "rgba(232,115,74,0.2)";
+      ctx.font = "italic 14px 'Cormorant Garamond', Georgia, serif";
+      ctx.fillText("givemeasign.app", 300, 350);
+
+      // Stars decoration
+      ctx.fillStyle = "rgba(232,115,74,0.3)";
+      [[80,50],[520,60],[90,340],[510,330],[300,25]].forEach(([x,y]) => {
+        ctx.beginPath(); ctx.arc(x, y, 1.5, 0, Math.PI * 2); ctx.fill();
+      });
+
+      const blob = await new Promise(r => canvas.toBlob(r, "image/png"));
+      const file = new File([blob], "give-me-a-sign.png", { type: "image/png" });
+
+      // Try native share first (mobile)
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          title: "Give Me a Sign",
+          text: `"${sign.text}" — ${sign.source}`,
+          files: [file],
+        });
+        setShareStatus("shared");
+      } else {
+        // Fallback: copy to clipboard
+        await navigator.clipboard.write([
+          new ClipboardItem({ "image/png": blob })
+        ]);
+        setShareStatus("copied");
+      }
+    } catch (e) {
+      // If clipboard fails, try text-only
+      try {
+        await navigator.clipboard.writeText(`"${sign.text}" — ${sign.source}\n\ngivemeasign.app`);
+        setShareStatus("copied");
+      } catch {
+        setShareStatus(null);
+      }
+    }
+    setTimeout(() => setShareStatus(null), 2500);
   };
 
   useEffect(()=>{
@@ -992,24 +1080,44 @@ export default function App() {
 
       {/* SIGN CARD */}
       {ph==="show"&&sign&&!fin&&(
-        <div style={{
-          maxWidth:420,width:"100%",animation:"cardReveal 1s cubic-bezier(.16,1,.3,1)",zIndex:2,marginBottom:24,
-          background:"rgba(232,115,74,.015)",border:"1px solid rgba(232,115,74,.08)",borderRadius:20,overflow:"hidden",
-        }}>
-          <div style={{
-            padding:"32px 20px 16px",display:"flex",flexDirection:"column",alignItems:"center",
-            background:"radial-gradient(ellipse at 50% 80%,rgba(232,115,74,.05),transparent 70%)",
+        <div style={{maxWidth:420,width:"100%",zIndex:2,marginBottom:8,display:"flex",flexDirection:"column",alignItems:"center"}}>
+          <div ref={cardRef} style={{
+            width:"100%",animation:"cardReveal 1s cubic-bezier(.16,1,.3,1)",
+            background:"rgba(232,115,74,.015)",border:"1px solid rgba(232,115,74,.08)",borderRadius:20,overflow:"hidden",
           }}>
-            <svg viewBox="0 0 120 80" style={{width:130,height:88,opacity:.8,animation:"fadeInSlow 1.2s ease"}}>{getC(sign.source)}</svg>
+            <div style={{
+              padding:"32px 20px 16px",display:"flex",flexDirection:"column",alignItems:"center",
+              background:"radial-gradient(ellipse at 50% 80%,rgba(232,115,74,.05),transparent 70%)",
+            }}>
+              <svg viewBox="0 0 120 80" style={{width:130,height:88,opacity:.8,animation:"fadeInSlow 1.2s ease"}}>{getC(sign.source)}</svg>
+            </div>
+            <div style={{padding:"20px 32px 32px",textAlign:"center"}}>
+              <p style={{fontSize:"clamp(18px,4.5vw,24px)",fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",lineHeight:1.7,margin:"0 0 16px 0",fontWeight:400,color:"#f0ebe4",animation:"fadeIn 1.2s ease .3s both"}}>
+                "{sign.text}"
+              </p>
+              <p style={{fontSize:12,fontFamily:"'Cinzel',serif",fontWeight:400,color:"rgba(232,115,74,.45)",letterSpacing:".08em",margin:0,animation:"fadeIn 1.2s ease .6s both"}}>
+                — {sign.source}
+              </p>
+            </div>
           </div>
-          <div style={{padding:"20px 32px 32px",textAlign:"center"}}>
-            <p style={{fontSize:"clamp(18px,4.5vw,24px)",fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",lineHeight:1.7,margin:"0 0 16px 0",fontWeight:400,color:"#f0ebe4",animation:"fadeIn 1.2s ease .3s both"}}>
-              "{sign.text}"
-            </p>
-            <p style={{fontSize:12,fontFamily:"'Cinzel',serif",fontWeight:400,color:"rgba(232,115,74,.45)",letterSpacing:".08em",margin:0,animation:"fadeIn 1.2s ease .6s both"}}>
-              — {sign.source}
-            </p>
-          </div>
+          {/* Share button */}
+          <button onClick={shareSign} disabled={shareStatus==="copying"} style={{
+            marginTop:16,border:"none",cursor:"pointer",background:"none",
+            display:"flex",alignItems:"center",gap:8,padding:"8px 20px",borderRadius:100,
+            transition:"all .3s ease",opacity:shareStatus?"1":".6",
+          }}>
+            <svg viewBox="0 0 20 20" style={{width:16,height:16,opacity:.5}}>
+              <path d="M13 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM13 13a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM5 8a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" fill="#e8734a"/>
+              <line x1="9" y1="9" x2="11" y2="6" stroke="#e8734a" strokeWidth=".8" opacity=".4"/>
+              <line x1="9" y1="11" x2="11" y2="14" stroke="#e8734a" strokeWidth=".8" opacity=".4"/>
+            </svg>
+            <span style={{fontFamily:"'Raleway',sans-serif",fontSize:11,fontWeight:300,letterSpacing:".1em",
+              color:shareStatus==="copied"||shareStatus==="shared"?"rgba(110,231,183,.7)":"rgba(255,220,200,.3)",
+              transition:"color .3s ease",textTransform:"uppercase",
+            }}>
+              {shareStatus==="copying"?"creating image…":shareStatus==="copied"?"copied to clipboard ✓":shareStatus==="shared"?"shared ✓":"share this with someone"}
+            </span>
+          </button>
         </div>
       )}
 
