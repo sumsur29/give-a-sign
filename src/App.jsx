@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 // ══════════════════════════════════════════════════════════════
 // 500 SIGNS: [text, source, type, verdict]
@@ -704,6 +704,11 @@ export default function App() {
   const [fin, setFin] = useState(null);
   const [msg, setMsg] = useState("");
   const [step, setStep] = useState(0);
+  const [holding, setHolding] = useState(false);
+  const [holdProgress, setHoldProgress] = useState(0);
+  const holdTimer = useRef(null);
+  const holdStart = useRef(null);
+  const HOLD_DURATION = 1200; // ms to hold
 
   const yC = rds.filter(r=>r.verdict==="yes").length;
   const nC = rds.filter(r=>r.verdict==="no").length;
@@ -723,6 +728,31 @@ export default function App() {
 
   const go=()=>{if(!mode){setRds([]);setFin(null);}reveal()};
   const bo=(n)=>{if(sign)setRds([{...sign}]);setMode(n);setFin(null);setSign(null);setPh("idle")};
+
+  const startHold = () => {
+    if(ph==="ch"||ph==="done") return;
+    setHolding(true);
+    holdStart.current = Date.now();
+    const tick = () => {
+      const elapsed = Date.now() - holdStart.current;
+      const p = Math.min(elapsed / HOLD_DURATION, 1);
+      setHoldProgress(p);
+      if(p >= 1) {
+        setHolding(false);
+        setHoldProgress(0);
+        go();
+      } else {
+        holdTimer.current = requestAnimationFrame(tick);
+      }
+    };
+    holdTimer.current = requestAnimationFrame(tick);
+  };
+
+  const endHold = () => {
+    setHolding(false);
+    setHoldProgress(0);
+    if(holdTimer.current) cancelAnimationFrame(holdTimer.current);
+  };
 
   useEffect(()=>{
     if(ph==="show"&&sign&&mode){
@@ -748,10 +778,13 @@ export default function App() {
         @keyframes glitch{0%,90%,100%{opacity:1;transform:none}93%{opacity:.7;transform:translateX(-2px)}96%{opacity:.9;transform:translateX(1px)}}
         @keyframes dotP{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.3)}}
         @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
-        .btn{border:1px solid rgba(232,115,74,.35);cursor:pointer;background:transparent;color:rgba(232,115,74,.85);font-family:'Azeret Mono',monospace;font-weight:400;font-size:13px;padding:18px 48px;border-radius:0;letter-spacing:.2em;text-transform:uppercase;transition:all .4s ease;z-index:2}
-        .btn:hover{background:rgba(232,115,74,.08);border-color:rgba(232,115,74,.5);box-shadow:0 0 30px rgba(232,115,74,.15)}
-        .btn.br{animation:breathe 3s ease-in-out infinite}
-        .btn:disabled{opacity:.3;cursor:not-allowed;animation:none}
+        @keyframes orbPulse{0%,100%{transform:scale(1);box-shadow:0 0 30px rgba(232,115,74,.15),0 0 60px rgba(232,115,74,.05)}50%{transform:scale(1.04);box-shadow:0 0 50px rgba(232,115,74,.3),0 0 100px rgba(232,115,74,.1)}}
+        @keyframes ringRotate{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+        @keyframes ringRotateR{0%{transform:rotate(360deg)}100%{transform:rotate(0deg)}}
+        @keyframes fillUp{0%{transform:scaleY(0)}100%{transform:scaleY(1)}}
+        @keyframes orbIdle{0%,100%{opacity:.4}50%{opacity:.8}}
+        @keyframes sparkle{0%,100%{opacity:0;transform:scale(0)}50%{opacity:1;transform:scale(1)}}
+        @keyframes textGlow{0%,100%{opacity:.6}50%{opacity:1}}
         .opt{border:1px solid rgba(232,115,74,.2);cursor:pointer;background:transparent;color:rgba(232,115,74,.5);font-family:'Azeret Mono',monospace;font-weight:300;font-size:11px;padding:10px 24px;border-radius:0;transition:all .3s ease;letter-spacing:.15em;text-transform:uppercase}
         .opt:hover{background:rgba(232,115,74,.06);border-color:rgba(232,115,74,.4);color:rgba(232,115,74,.8)}
         .rst{border:none;cursor:pointer;background:none;color:rgba(232,115,74,.2);font-family:'Azeret Mono',monospace;font-weight:300;font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:8px 16px;transition:color .3s}
@@ -841,12 +874,87 @@ export default function App() {
         </div>
       )}
 
-      {/* Button */}
+      {/* THE ORB — hold to channel */}
       {ph!=="done"&&(
-        <div style={{zIndex:2,marginBottom:20}}>
-          <button className={`btn ${ph==="idle"?"br":""}`} onClick={go} disabled={ph==="ch"}>
-            {ph==="ch"?"◌ ◌ ◌":mode&&rds.length>0?`Channel Sign ${rds.length+1}`:"Give Me a Sign"}
-          </button>
+        <div style={{zIndex:2,marginBottom:20,display:"flex",flexDirection:"column",alignItems:"center",gap:16}}>
+          <div
+            onMouseDown={ph!=="ch"?startHold:undefined}
+            onMouseUp={endHold}
+            onMouseLeave={endHold}
+            onTouchStart={ph!=="ch"?(e)=>{e.preventDefault();startHold()}:undefined}
+            onTouchEnd={endHold}
+            style={{
+              position:"relative",width:180,height:180,cursor:ph==="ch"?"not-allowed":"pointer",
+              display:"flex",alignItems:"center",justifyContent:"center",
+              userSelect:"none",WebkitUserSelect:"none",WebkitTouchCallout:"none",
+              opacity:ph==="ch"?.4:1,transition:"opacity .4s ease",
+            }}
+          >
+            {/* Main progress ring — always visible */}
+            <svg style={{position:"absolute",width:180,height:180,transform:"rotate(-90deg)"}} viewBox="0 0 180 180">
+              {/* Track */}
+              <circle cx="90" cy="90" r="84" fill="none" stroke="rgba(232,115,74,.08)" strokeWidth="2"/>
+              {/* Progress fill */}
+              <circle cx="90" cy="90" r="84" fill="none" stroke="#e8734a" strokeWidth={holding?"3":"0"}
+                strokeDasharray={`${holdProgress * 528} 528`}
+                strokeLinecap="round"
+                style={{filter:holdProgress>0?"drop-shadow(0 0 6px rgba(232,115,74,.6))":"none",transition:holding?"none":"stroke-width .3s ease"}}
+              />
+              {/* Completion flash */}
+              {holdProgress>0.95&&(
+                <circle cx="90" cy="90" r="84" fill="none" stroke="#e8734a" strokeWidth="4" opacity=".5"
+                  style={{filter:"drop-shadow(0 0 12px rgba(232,115,74,.8))"}}
+                />
+              )}
+            </svg>
+            {/* Outer decorative rotating ring */}
+            <div style={{
+              position:"absolute",inset:8,borderRadius:"50%",
+              border:"1px solid rgba(232,115,74,.06)",
+              animation:holding?"ringRotate 2s linear infinite":"ringRotate 12s linear infinite",
+              transition:"animation .3s ease",
+            }}>
+              <div style={{position:"absolute",top:-2,left:"50%",marginLeft:-2,width:4,height:4,borderRadius:"50%",background:"#e8734a",opacity:holding?.8:.4}}/>
+              <div style={{position:"absolute",bottom:-2,left:"50%",marginLeft:-2,width:3,height:3,borderRadius:"50%",background:"#e8734a",opacity:.2}}/>
+            </div>
+            {/* Inner orb */}
+            <div style={{
+              width:110,height:110,borderRadius:"50%",
+              background:holding
+                ?`radial-gradient(circle at 40% 35%, rgba(232,115,74,${.1+holdProgress*.25}) 0%, rgba(232,115,74,${.04+holdProgress*.12}) 50%, transparent 100%)`
+                :"radial-gradient(circle at 40% 35%, rgba(232,115,74,.12) 0%, rgba(232,115,74,.04) 50%, transparent 100%)",
+              border:`1px solid rgba(232,115,74,${holding?.15+holdProgress*.2:.1})`,
+              display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column",gap:4,
+              animation:!holding&&ph==="idle"?"orbPulse 3s ease-in-out infinite":"none",
+              transition:"all .2s ease",
+              transform:holding?`scale(${0.95 + holdProgress * 0.1})`:"scale(1)",
+              boxShadow:holding
+                ?`0 0 ${20+holdProgress*40}px rgba(232,115,74,${.1+holdProgress*.3}), inset 0 0 ${holdProgress*30}px rgba(232,115,74,${holdProgress*.15})`
+                :"0 0 20px rgba(232,115,74,.08)",
+            }}>
+              {/* Label only — no numbers */}
+              <span style={{
+                fontFamily:"'Azeret Mono',monospace",fontSize:10,fontWeight:400,
+                color:holding?`rgba(232,115,74,${.5+holdProgress*.4})`:"rgba(232,115,74,.6)",
+                letterSpacing:".1em",textTransform:"uppercase",
+                textAlign:"center",lineHeight:1.5,
+                animation:!holding&&ph==="idle"?"textGlow 3s ease-in-out infinite":"none",
+                transition:"color .2s ease",
+              }}>
+                {ph==="ch"?"◌ ◌ ◌":holding?"channeling":mode&&rds.length>0?<>Sign<br/>{rds.length+1} of {mode}</>:<>Hold to<br/>channel</>}
+              </span>
+            </div>
+          </div>
+          {/* Hint */}
+          {ph==="idle"&&!holding&&(
+            <span style={{
+              fontFamily:"'Azeret Mono',monospace",fontSize:9,color:"rgba(255,220,200,.2)",
+              letterSpacing:".15em",textTransform:"uppercase",
+              animation:"fadeIn .8s ease .5s both",
+            }}>
+              {mode&&rds.length>0?"hold to channel next sign":"press & hold"}
+            </span>
+          )}
         </div>
       )}
 
