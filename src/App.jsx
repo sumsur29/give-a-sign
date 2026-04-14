@@ -828,7 +828,7 @@ export default function App() {
       if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({
           title: "Give Me a Sign",
-          text: `"${sign.text}" — ${sign.source}\n\nNeed a sign? → give-a-sign.vercel.app`,
+          text: `"${sign.text}" — ${sign.source}\n\nNeed a sign? → https://give-a-sign.vercel.app`,
           files: [file],
         });
         setShareStatus("shared");
@@ -842,7 +842,7 @@ export default function App() {
     } catch (e) {
       // If clipboard fails, try text-only
       try {
-        await navigator.clipboard.writeText(`"${sign.text}" — ${sign.source}\n\nNeed a sign? → give-a-sign.vercel.app`);
+        await navigator.clipboard.writeText(`"${sign.text}" — ${sign.source}\n\nNeed a sign? → https://give-a-sign.vercel.app`);
         setShareStatus("copied");
       } catch {
         setShareStatus(null);
