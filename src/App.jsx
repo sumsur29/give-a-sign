@@ -941,7 +941,7 @@ export default function App() {
                 animation:!holding&&ph==="idle"?"textGlow 3s ease-in-out infinite":"none",
                 transition:"color .2s ease",
               }}>
-                {ph==="ch"?"◌ ◌ ◌":holding?"channeling":mode&&rds.length>0?<>Sign<br/>{rds.length+1} of {mode}</>:<>Hold to<br/>channel</>}
+                {ph==="ch"?"◌ ◌ ◌":holding?"channeling":mode&&rds.length>0?<>Sign<br/>{rds.length+1} of {mode}</>:<>Ask the<br/>Universe</>}
               </span>
             </div>
           </div>
