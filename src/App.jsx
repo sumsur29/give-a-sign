@@ -670,13 +670,22 @@ const getC = (src) => { const k = SM[src]; return (C[k] || C.generic)(); };
 
 // ── CHANNELING MESSAGES ──
 const CH = [
-  "Tuning into ambient frequencies…","Scanning billboards in your dimension…",
-  "Channeling universe signatures…","Intercepting cosmic transmissions…",
-  "Gathering scattered energies…","Aligning celestial wavelengths…",
-  "Decoding astral signals…","Parsing the noise of existence…",
-  "Pulling from the ether…","Syncing with the collective unconscious…",
-  "Tapping into the cultural frequency…","Scanning for resonance patterns…",
-  "Calibrating dimensional receivers…","Filtering signal from noise…",
+  "The stars are shifting into alignment…",
+  "Something is stirring in the ether…",
+  "The veil between worlds grows thin…",
+  "A message is forming in the silence…",
+  "The cosmos is rearranging itself for you…",
+  "Voices from beyond are gathering…",
+  "Your energy is being read…",
+  "The universe has noticed you…",
+  "Threads of fate are being woven…",
+  "Ancient frequencies are resonating…",
+  "A sign is traveling toward you…",
+  "The celestial plane is responding…",
+  "Echoes from the collective soul…",
+  "The answer is finding its way to you…",
+  "Destiny is clearing a path…",
+  "Something wants to be heard…",
 ];
 
 const getRand = (ex) => {
@@ -768,44 +777,126 @@ export default function App() {
       minHeight:"100vh",
       background:"radial-gradient(ellipse at 50% 20%,#1a110c 0%,#0d0906 50%,#060403 100%)",
       display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"flex-start",
-      fontFamily:"'Newsreader',Georgia,serif",color:"#f0ebe4",position:"relative",paddingTop:"clamp(60px, 15vh, 140px)",paddingBottom:40,paddingLeft:20,paddingRight:20,
+      fontFamily:"'Cormorant Garamond',Georgia,serif",color:"#f0ebe4",position:"relative",paddingTop:"clamp(60px, 15vh, 140px)",paddingBottom:40,paddingLeft:20,paddingRight:20,
     }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,700;1,6..72,400;1,6..72,700&family=Azeret+Mono:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=Cinzel:wght@400;500;600;700&family=Raleway:wght@200;300;400&display=swap');
         *{box-sizing:border-box}
         @keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeInSlow{from{opacity:0}to{opacity:1}}
         @keyframes breathe{0%,100%{box-shadow:0 0 20px rgba(232,115,74,.12)}50%{box-shadow:0 0 50px rgba(232,115,74,.25),0 0 100px rgba(232,115,74,.06)}}
-        @keyframes glitch{0%,90%,100%{opacity:1;transform:none}93%{opacity:.7;transform:translateX(-2px)}96%{opacity:.9;transform:translateX(1px)}}
+        @keyframes mysticalPulse{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.7;transform:scale(1.02)}}
         @keyframes dotP{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.3)}}
         @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
         @keyframes orbPulse{0%,100%{transform:scale(1);box-shadow:0 0 30px rgba(232,115,74,.15),0 0 60px rgba(232,115,74,.05)}50%{transform:scale(1.04);box-shadow:0 0 50px rgba(232,115,74,.3),0 0 100px rgba(232,115,74,.1)}}
         @keyframes ringRotate{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
         @keyframes ringRotateR{0%{transform:rotate(360deg)}100%{transform:rotate(0deg)}}
-        @keyframes fillUp{0%{transform:scaleY(0)}100%{transform:scaleY(1)}}
-        @keyframes orbIdle{0%,100%{opacity:.4}50%{opacity:.8}}
         @keyframes sparkle{0%,100%{opacity:0;transform:scale(0)}50%{opacity:1;transform:scale(1)}}
-        @keyframes textGlow{0%,100%{opacity:.6}50%{opacity:1}}
-        .opt{border:1px solid rgba(232,115,74,.2);cursor:pointer;background:transparent;color:rgba(232,115,74,.5);font-family:'Azeret Mono',monospace;font-weight:300;font-size:11px;padding:10px 24px;border-radius:0;transition:all .3s ease;letter-spacing:.15em;text-transform:uppercase}
-        .opt:hover{background:rgba(232,115,74,.06);border-color:rgba(232,115,74,.4);color:rgba(232,115,74,.8)}
-        .rst{border:none;cursor:pointer;background:none;color:rgba(232,115,74,.2);font-family:'Azeret Mono',monospace;font-weight:300;font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:8px 16px;transition:color .3s}
-        .rst:hover{color:rgba(232,115,74,.5)}
+        @keyframes textGlow{0%,100%{opacity:.5}50%{opacity:.9}}
+        @keyframes floatStar{0%,100%{transform:translateY(0) scale(1);opacity:.3}50%{transform:translateY(-4px) scale(1.2);opacity:.8}}
+        @keyframes cardReveal{from{opacity:0;transform:translateY(24px) scale(.97);filter:blur(4px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+        @keyframes channelFade{0%{opacity:0;transform:translateY(8px);filter:blur(2px)}20%{opacity:1;transform:translateY(0);filter:blur(0)}80%{opacity:1;transform:translateY(0);filter:blur(0)}100%{opacity:0;transform:translateY(-6px);filter:blur(1px)}}
+        @keyframes constellationDraw{from{stroke-dashoffset:200}to{stroke-dashoffset:0}}
+        .opt{border:1px solid rgba(232,115,74,.15);cursor:pointer;background:transparent;color:rgba(232,115,74,.45);font-family:'Raleway',sans-serif;font-weight:300;font-size:11px;padding:10px 28px;border-radius:100px;transition:all .4s ease;letter-spacing:.2em;text-transform:uppercase}
+        .opt:hover{background:rgba(232,115,74,.06);border-color:rgba(232,115,74,.35);color:rgba(232,115,74,.8);transform:translateY(-1px)}
+        .rst{border:none;cursor:pointer;background:none;color:rgba(232,115,74,.18);font-family:'Raleway',sans-serif;font-weight:300;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:8px 16px;transition:color .3s}
+        .rst:hover{color:rgba(232,115,74,.45)}
       `}</style>
 
+      {/* ── CELESTIAL BACKGROUND — constellations only ── */}
+      <div style={{position:"fixed",inset:0,pointerEvents:"none",zIndex:0,overflow:"hidden"}}>
+        <svg style={{position:"absolute",inset:0,width:"100%",height:"100%"}} viewBox="0 0 420 900" preserveAspectRatio="xMidYMid slice">
+
+          {/* ── Constellation cluster: top-left ── */}
+          <circle cx="60" cy="80" r="1.5" fill="#e8734a" opacity=".4">
+            <animate attributeName="opacity" values=".15;.5;.15" dur="4s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="95" cy="110" r="1" fill="#e8734a" opacity=".3">
+            <animate attributeName="opacity" values=".1;.4;.1" dur="3.5s" begin=".5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="75" cy="140" r="1.2" fill="#e8734a" opacity=".25"/>
+          <circle cx="115" cy="90" r=".8" fill="#e8734a" opacity=".35">
+            <animate attributeName="opacity" values=".15;.45;.15" dur="5s" begin="1s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="45" cy="120" r=".6" fill="#e8734a" opacity=".2"/>
+          <line x1="60" y1="80" x2="95" y2="110" stroke="#e8734a" strokeWidth=".4" opacity=".1"/>
+          <line x1="95" y1="110" x2="75" y2="140" stroke="#e8734a" strokeWidth=".4" opacity=".1"/>
+          <line x1="95" y1="110" x2="115" y2="90" stroke="#e8734a" strokeWidth=".4" opacity=".1"/>
+          <line x1="60" y1="80" x2="45" y2="120" stroke="#e8734a" strokeWidth=".3" opacity=".07"/>
+
+          {/* ── Constellation cluster: top-right ── */}
+          <circle cx="330" cy="150" r="1.2" fill="#e8734a" opacity=".3">
+            <animate attributeName="opacity" values=".1;.4;.1" dur="4.5s" begin=".3s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="360" cy="180" r="1" fill="#e8734a" opacity=".25"/>
+          <circle cx="345" cy="120" r=".8" fill="#e8734a" opacity=".2">
+            <animate attributeName="opacity" values=".1;.35;.1" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="380" cy="145" r=".6" fill="#e8734a" opacity=".15"/>
+          <line x1="330" y1="150" x2="360" y2="180" stroke="#e8734a" strokeWidth=".35" opacity=".08"/>
+          <line x1="330" y1="150" x2="345" y2="120" stroke="#e8734a" strokeWidth=".35" opacity=".08"/>
+          <line x1="345" y1="120" x2="380" y2="145" stroke="#e8734a" strokeWidth=".3" opacity=".06"/>
+
+          {/* ── Constellation cluster: bottom-left ── */}
+          <circle cx="70" cy="720" r="1" fill="#e8734a" opacity=".2">
+            <animate attributeName="opacity" values=".1;.3;.1" dur="5s" begin="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="100" cy="750" r=".8" fill="#e8734a" opacity=".15"/>
+          <circle cx="50" cy="760" r="1.2" fill="#e8734a" opacity=".25"/>
+          <circle cx="85" cy="690" r=".6" fill="#e8734a" opacity=".18"/>
+          <line x1="70" y1="720" x2="100" y2="750" stroke="#e8734a" strokeWidth=".3" opacity=".07"/>
+          <line x1="70" y1="720" x2="50" y2="760" stroke="#e8734a" strokeWidth=".3" opacity=".07"/>
+          <line x1="70" y1="720" x2="85" y2="690" stroke="#e8734a" strokeWidth=".25" opacity=".06"/>
+
+          {/* ── Constellation cluster: bottom-right ── */}
+          <circle cx="350" cy="700" r="1.3" fill="#e8734a" opacity=".3">
+            <animate attributeName="opacity" values=".1;.35;.1" dur="3.8s" begin=".8s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="370" cy="730" r=".7" fill="#e8734a" opacity=".18"/>
+          <circle cx="335" cy="740" r=".9" fill="#e8734a" opacity=".2"/>
+          <circle cx="385" cy="710" r=".5" fill="#e8734a" opacity=".12"/>
+          <line x1="350" y1="700" x2="370" y2="730" stroke="#e8734a" strokeWidth=".3" opacity=".07"/>
+          <line x1="350" y1="700" x2="335" y2="740" stroke="#e8734a" strokeWidth=".3" opacity=".07"/>
+          <line x1="350" y1="700" x2="385" y2="710" stroke="#e8734a" strokeWidth=".25" opacity=".05"/>
+
+          {/* ── Constellation cluster: mid-left ── */}
+          <circle cx="35" cy="400" r=".9" fill="#e8734a" opacity=".2">
+            <animate attributeName="opacity" values=".08;.25;.08" dur="4.2s" begin="1.2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="55" cy="380" r=".6" fill="#e8734a" opacity=".15"/>
+          <circle cx="25" cy="430" r=".7" fill="#e8734a" opacity=".12"/>
+          <line x1="35" y1="400" x2="55" y2="380" stroke="#e8734a" strokeWidth=".25" opacity=".06"/>
+          <line x1="35" y1="400" x2="25" y2="430" stroke="#e8734a" strokeWidth=".25" opacity=".06"/>
+
+          {/* ── Scattered lone stars ── */}
+          <circle cx="180" cy="50" r=".5" fill="#e8734a" opacity=".12"/>
+          <circle cx="300" cy="300" r=".4" fill="#e8734a" opacity=".1"/>
+          <circle cx="390" cy="450" r=".6" fill="#e8734a" opacity=".1"/>
+          <circle cx="30" cy="600" r=".4" fill="#e8734a" opacity=".07"/>
+          <circle cx="250" cy="820" r=".5" fill="#e8734a" opacity=".08"/>
+          <circle cx="160" cy="850" r=".4" fill="#e8734a" opacity=".06"/>
+          <circle cx="400" cy="350" r=".3" fill="#e8734a" opacity=".08"/>
+          <circle cx="15" cy="250" r=".5" fill="#e8734a" opacity=".1">
+            <animate attributeName="opacity" values=".05;.15;.05" dur="6s" begin="3s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+
       {/* Header */}
-      <div style={{textAlign:"center",marginBottom:ph==="idle"&&!mode?56:28,zIndex:2,animation:"fadeIn 1s ease",transition:"margin .6s ease",width:"100%",maxWidth:600,display:"flex",flexDirection:"column",alignItems:"center"}}>
-        <div style={{fontSize:10,fontFamily:"'Azeret Mono',monospace",fontWeight:400,letterSpacing:".4em",textTransform:"uppercase",color:"rgba(255,220,200,.35)",marginBottom:14,whiteSpace:"nowrap"}}>
-          ◆&nbsp;What's the universe telling you?&nbsp;◆
+      <div style={{textAlign:"center",marginBottom:ph==="idle"&&!mode?56:28,zIndex:2,animation:"fadeIn 1.2s ease",transition:"margin .6s ease",width:"100%",maxWidth:600,display:"flex",flexDirection:"column",alignItems:"center"}}>
+        <div style={{fontSize:10,fontFamily:"'Cinzel',serif",fontWeight:400,letterSpacing:".4em",textTransform:"uppercase",color:"rgba(255,220,200,.3)",marginBottom:16,whiteSpace:"nowrap"}}>
+          ✦&nbsp;&nbsp;What's the universe telling you?&nbsp;&nbsp;✦
         </div>
         <h1 style={{
-          fontSize:ph==="idle"&&!mode?"clamp(36px,9vw,58px)":"clamp(26px,6vw,38px)",
-          fontFamily:"'Newsreader',Georgia,serif",fontWeight:700,fontStyle:"italic",margin:"0 auto",
-          background:"linear-gradient(135deg,#f0ebe4 0%,#e8734a 40%,#f0ebe4 80%)",
-          backgroundSize:"200% auto",backgroundClip:"text",WebkitBackgroundClip:"text",color:"transparent",
-          lineHeight:1.15,animation:"shimmer 4s linear infinite",transition:"font-size .6s ease",
+          fontSize:ph==="idle"&&!mode?"clamp(38px,10vw,64px)":"clamp(28px,6vw,40px)",
+          fontFamily:"'Cormorant Garamond',Georgia,serif",fontWeight:300,fontStyle:"italic",margin:"0 auto",
+          background:"linear-gradient(135deg,#f0ebe4 0%,#e8734a 35%,#f0ebe4 65%,#e8734a 100%)",
+          backgroundSize:"300% auto",backgroundClip:"text",WebkitBackgroundClip:"text",color:"transparent",
+          lineHeight:1.15,animation:"shimmer 6s linear infinite",transition:"font-size .6s ease",
           textAlign:"center",width:"100%",
         }}>Give Me a Sign</h1>
         {ph==="idle"&&!mode&&(
-          <p style={{fontSize:13,fontFamily:"'Azeret Mono',monospace",fontWeight:400,color:"rgba(255,220,200,.4)",marginTop:18,letterSpacing:".04em",lineHeight:1.8,textAlign:"center",margin:"18px auto 0",maxWidth:360}}>
+          <p style={{fontSize:14,fontFamily:"'Raleway',sans-serif",fontWeight:300,color:"rgba(255,220,200,.35)",letterSpacing:".06em",lineHeight:1.9,textAlign:"center",margin:"20px auto 0",maxWidth:360,animation:"fadeIn 2s ease .5s both"}}>
             you already know the answer —<br/>you just need to hear it from somewhere else
           </p>
         )}
@@ -814,7 +905,7 @@ export default function App() {
       {/* Mode dots */}
       {mode&&!fin&&(
         <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:18,animation:"fadeIn .4s ease",zIndex:2}}>
-          <span style={{fontFamily:"'Azeret Mono',monospace",fontSize:9,color:"rgba(232,115,74,.3)",letterSpacing:".2em",textTransform:"uppercase"}}>Best of {mode}</span>
+          <span style={{fontFamily:"'Cinzel',serif",fontSize:9,color:"rgba(255,220,200,.25)",letterSpacing:".25em",textTransform:"uppercase"}}>Best of {mode}</span>
           <div style={{display:"flex",gap:5,alignItems:"center"}}>
             {rds.map((_,i)=><div key={i} style={{width:12,height:12,borderRadius:"50%",background:"rgba(232,115,74,.5)",boxShadow:"0 0 8px rgba(232,115,74,.3)",transition:"all .4s ease"}}/>)}
             {Array.from({length:Math.max(0,mode-rds.length)}).map((_,i)=><div key={`e${i}`} style={{width:8,height:8,borderRadius:"50%",background:"rgba(255,255,255,.08)",transition:"all .4s ease"}}/>)}
@@ -824,35 +915,46 @@ export default function App() {
 
       {/* Channeling */}
       {ph==="ch"&&(
-        <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:20,marginBottom:28,zIndex:2,minHeight:140,justifyContent:"center"}}>
-          <div style={{position:"relative",width:56,height:56}}>
+        <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:24,marginBottom:28,zIndex:2,minHeight:160,justifyContent:"center"}}>
+          {/* Mystical symbol */}
+          <div style={{position:"relative",width:64,height:64}}>
+            <svg viewBox="0 0 64 64" style={{width:64,height:64,animation:"ringRotate 8s linear infinite",opacity:.3}}>
+              <circle cx="32" cy="32" r="28" fill="none" stroke="#e8734a" strokeWidth=".5" strokeDasharray="4 6"/>
+              <circle cx="32" cy="32" r="20" fill="none" stroke="#e8734a" strokeWidth=".3" strokeDasharray="2 4"/>
+            </svg>
             {[0,1,2].map(i=>(
               <div key={i} style={{
-                position:"absolute",width:5,height:5,borderRadius:"50%",background:"#e8734a",
-                left:25.5+Math.cos(step*2.1+i*2.094)*20,top:25.5+Math.sin(step*2.1+i*2.094)*20,
-                opacity:step===i?1:.15,transition:"all .5s ease",animation:`dotP 1.2s ${i*.4}s ease-in-out infinite`,
+                position:"absolute",width:4,height:4,borderRadius:"50%",background:"#e8734a",
+                left:30+Math.cos(step*2.1+i*2.094)*22,top:30+Math.sin(step*2.1+i*2.094)*22,
+                opacity:step===i?1:.15,transition:"all .6s ease",animation:`dotP 1.5s ${i*.5}s ease-in-out infinite`,
               }}/>
             ))}
           </div>
-          <p style={{fontFamily:"'Azeret Mono',monospace",fontSize:11,color:"rgba(232,115,74,.4)",letterSpacing:".06em",animation:"glitch 2s ease infinite",textAlign:"center"}}>{msg}</p>
+          <p style={{fontFamily:"'Cormorant Garamond',Georgia,serif",fontSize:16,fontStyle:"italic",fontWeight:300,color:"rgba(255,220,200,.4)",letterSpacing:".04em",animation:"channelFade 1.1s ease-in-out",textAlign:"center",lineHeight:1.6,maxWidth:300}}>
+            {msg}
+          </p>
         </div>
       )}
 
       {/* SIGN CARD */}
       {ph==="show"&&sign&&!fin&&(
         <div style={{
-          maxWidth:420,width:"100%",animation:"fadeIn .6s ease",zIndex:2,marginBottom:24,
-          background:"rgba(232,115,74,.02)",border:"1px solid rgba(232,115,74,.1)",borderRadius:16,overflow:"hidden",
+          maxWidth:420,width:"100%",animation:"cardReveal 1s cubic-bezier(.16,1,.3,1)",zIndex:2,marginBottom:24,
+          background:"rgba(232,115,74,.015)",border:"1px solid rgba(232,115,74,.08)",borderRadius:20,overflow:"hidden",
         }}>
           <div style={{
-            padding:"28px 20px 16px",display:"flex",flexDirection:"column",alignItems:"center",
-            background:"radial-gradient(ellipse at 50% 80%,rgba(232,115,74,.06),transparent 70%)",
+            padding:"32px 20px 16px",display:"flex",flexDirection:"column",alignItems:"center",
+            background:"radial-gradient(ellipse at 50% 80%,rgba(232,115,74,.05),transparent 70%)",
           }}>
-            <svg viewBox="0 0 120 80" style={{width:130,height:88,opacity:.85}}>{getC(sign.source)}</svg>
+            <svg viewBox="0 0 120 80" style={{width:130,height:88,opacity:.8,animation:"fadeInSlow 1.2s ease"}}>{getC(sign.source)}</svg>
           </div>
-          <div style={{padding:"16px 28px 28px",textAlign:"center"}}>
-            <p style={{fontSize:"clamp(17px,4.2vw,22px)",fontFamily:"'Newsreader',Georgia,serif",fontStyle:"italic",lineHeight:1.6,margin:"0 0 14px 0",fontWeight:400,color:"#f0ebe4"}}>"{sign.text}"</p>
-            <p style={{fontSize:12,fontFamily:"'Azeret Mono',monospace",fontWeight:400,color:"rgba(232,115,74,.55)",letterSpacing:".04em",margin:0}}>— {sign.source}</p>
+          <div style={{padding:"20px 32px 32px",textAlign:"center"}}>
+            <p style={{fontSize:"clamp(18px,4.5vw,24px)",fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",lineHeight:1.7,margin:"0 0 16px 0",fontWeight:400,color:"#f0ebe4",animation:"fadeIn 1.2s ease .3s both"}}>
+              "{sign.text}"
+            </p>
+            <p style={{fontSize:12,fontFamily:"'Cinzel',serif",fontWeight:400,color:"rgba(232,115,74,.45)",letterSpacing:".08em",margin:0,animation:"fadeIn 1.2s ease .6s both"}}>
+              — {sign.source}
+            </p>
           </div>
         </div>
       )}
@@ -860,36 +962,57 @@ export default function App() {
       {/* Final — no verdict, let them interpret */}
       {fin&&(
         <div style={{
-          maxWidth:420,width:"100%",padding:"40px 28px",
-          border:"1px solid rgba(232,115,74,.12)",
-          borderRadius:16,textAlign:"center",animation:"fadeIn .6s ease",zIndex:2,marginBottom:20,
-          background:"radial-gradient(ellipse at center,rgba(232,115,74,.04),transparent 70%)",
+          maxWidth:420,width:"100%",padding:"44px 28px",
+          border:"1px solid rgba(232,115,74,.08)",
+          borderRadius:20,textAlign:"center",animation:"cardReveal 1s cubic-bezier(.16,1,.3,1)",zIndex:2,marginBottom:20,
+          background:"radial-gradient(ellipse at center,rgba(232,115,74,.03),transparent 70%)",
         }}>
-          <div style={{fontSize:9,fontFamily:"'Azeret Mono',monospace",color:"rgba(255,220,200,.35)",letterSpacing:".3em",textTransform:"uppercase",marginBottom:20}}>The signs have spoken</div>
-          <h2 style={{fontSize:28,fontFamily:"'Newsreader',Georgia,serif",fontStyle:"italic",fontWeight:700,color:"#f0ebe4",margin:"0 0 18px 0"}}>Now you decide.</h2>
-          <div style={{display:"flex",gap:6,justifyContent:"center",marginBottom:14}}>
-            {rds.map((_,i)=><div key={i} style={{width:10,height:10,borderRadius:"50%",background:"rgba(232,115,74,.35)",boxShadow:"0 0 6px rgba(232,115,74,.2)"}}/>)}
+          <div style={{fontSize:10,fontFamily:"'Cinzel',serif",color:"rgba(255,220,200,.3)",letterSpacing:".3em",textTransform:"uppercase",marginBottom:24}}>The signs have spoken</div>
+          <h2 style={{fontSize:30,fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",fontWeight:300,color:"#f0ebe4",margin:"0 0 20px 0"}}>Now you decide.</h2>
+          <div style={{display:"flex",gap:8,justifyContent:"center",marginBottom:16}}>
+            {rds.map((_,i)=><div key={i} style={{width:8,height:8,borderRadius:"50%",background:"rgba(232,115,74,.3)",boxShadow:"0 0 6px rgba(232,115,74,.15)"}}/>)}
           </div>
-          <p style={{fontFamily:"'Azeret Mono',monospace",fontSize:10,color:"rgba(255,220,200,.25)",letterSpacing:".1em"}}>{rds.length} signs channeled</p>
+          <p style={{fontFamily:"'Raleway',sans-serif",fontSize:11,fontWeight:300,color:"rgba(255,220,200,.2)",letterSpacing:".12em"}}>{rds.length} signs channeled</p>
         </div>
       )}
 
       {/* THE ORB — hold to channel */}
       {ph!=="done"&&(
         <div style={{zIndex:2,marginBottom:20,display:"flex",flexDirection:"column",alignItems:"center",gap:16}}>
-          <div
-            onMouseDown={ph!=="ch"?startHold:undefined}
-            onMouseUp={endHold}
-            onMouseLeave={endHold}
-            onTouchStart={ph!=="ch"?(e)=>{e.preventDefault();startHold()}:undefined}
-            onTouchEnd={endHold}
-            style={{
-              position:"relative",width:180,height:180,cursor:ph==="ch"?"not-allowed":"pointer",
-              display:"flex",alignItems:"center",justifyContent:"center",
-              userSelect:"none",WebkitUserSelect:"none",WebkitTouchCallout:"none",
-              opacity:ph==="ch"?.4:1,transition:"opacity .4s ease",
-            }}
-          >
+          {/* Wrapper for orb + sacred geometry */}
+          <div style={{position:"relative",width:320,height:320,display:"flex",alignItems:"center",justifyContent:"center"}}>
+            {/* Sacred geometry — centered behind orb */}
+            <svg style={{position:"absolute",width:320,height:320,pointerEvents:"none"}} viewBox="0 0 320 320">
+              <circle cx="160" cy="160" r="150" fill="none" stroke="#e8734a" strokeWidth=".4" opacity=".05">
+                <animateTransform attributeName="transform" type="rotate" values="0 160 160;360 160 160" dur="120s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="160" cy="160" r="115" fill="none" stroke="#e8734a" strokeWidth=".4" opacity=".06">
+                <animateTransform attributeName="transform" type="rotate" values="360 160 160;0 160 160" dur="90s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="160" cy="160" r="80" fill="none" stroke="#e8734a" strokeWidth=".5" opacity=".07"/>
+              <polygon points="160,80 240,160 160,240 80,160" fill="none" stroke="#e8734a" strokeWidth=".4" opacity=".04"/>
+              <polygon points="160,100 220,160 160,220 100,160" fill="none" stroke="#e8734a" strokeWidth=".3" opacity=".035"/>
+              <line x1="160" y1="80" x2="160" y2="240" stroke="#e8734a" strokeWidth=".25" opacity=".03"/>
+              <line x1="80" y1="160" x2="240" y2="160" stroke="#e8734a" strokeWidth=".25" opacity=".03"/>
+              <circle cx="160" cy="80" r="1.5" fill="#e8734a" opacity=".12"/>
+              <circle cx="240" cy="160" r="1.5" fill="#e8734a" opacity=".12"/>
+              <circle cx="160" cy="240" r="1.5" fill="#e8734a" opacity=".12"/>
+              <circle cx="80" cy="160" r="1.5" fill="#e8734a" opacity=".12"/>
+            </svg>
+            {/* Orb interactive area */}
+            <div
+              onMouseDown={ph!=="ch"?startHold:undefined}
+              onMouseUp={endHold}
+              onMouseLeave={endHold}
+              onTouchStart={ph!=="ch"?(e)=>{e.preventDefault();startHold()}:undefined}
+              onTouchEnd={endHold}
+              style={{
+                position:"relative",width:180,height:180,cursor:ph==="ch"?"not-allowed":"pointer",
+                display:"flex",alignItems:"center",justifyContent:"center",
+                userSelect:"none",WebkitUserSelect:"none",WebkitTouchCallout:"none",
+                opacity:ph==="ch"?.4:1,transition:"opacity .4s ease",
+              }}
+            >
             {/* Main progress ring — always visible */}
             <svg style={{position:"absolute",width:180,height:180,transform:"rotate(-90deg)"}} viewBox="0 0 180 180">
               {/* Track */}
@@ -950,7 +1073,7 @@ export default function App() {
                 pointerEvents:"none"}}/>}
               {/* Label — BOLD */}
               <span style={{
-                fontFamily:"'Azeret Mono',monospace",fontSize:10,fontWeight:700,
+                fontFamily:"'Cinzel',serif",fontSize:10,fontWeight:600,
                 color:holding?`rgba(255,210,180,${.5+holdProgress*.5})`:"rgba(255,210,180,.55)",
                 letterSpacing:".12em",textTransform:"uppercase",textAlign:"center",lineHeight:1.5,
                 position:"relative",zIndex:1,
@@ -961,11 +1084,12 @@ export default function App() {
                 {ph==="ch"?"◌ ◌ ◌":holding?"channeling":mode&&rds.length>0?<>Sign<br/>{rds.length+1} of {mode}</>:<>Ask the<br/>Universe</>}
               </span>
             </div>
-          </div>
+            </div>
+          </div>{/* end sacred geometry wrapper */}
           {/* Hint */}
           {ph==="idle"&&!holding&&(
             <span style={{
-              fontFamily:"'Azeret Mono',monospace",fontSize:9,color:"rgba(255,220,200,.2)",
+              fontFamily:"'Raleway',sans-serif",fontSize:10,fontWeight:300,color:"rgba(255,220,200,.2)",
               letterSpacing:".15em",textTransform:"uppercase",
               animation:"fadeIn .8s ease .5s both",
             }}>
@@ -978,7 +1102,7 @@ export default function App() {
       {/* After first sign */}
       {ph==="show"&&!mode&&!fin&&(
         <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:12,animation:"fadeIn .6s ease .4s both",zIndex:2}}>
-          <span style={{fontFamily:"'Azeret Mono',monospace",fontSize:9,color:"rgba(232,115,74,.2)",letterSpacing:".15em",textTransform:"uppercase"}}>Need more clarity?</span>
+          <span style={{fontFamily:"'Raleway',sans-serif",fontSize:11,fontWeight:300,color:"rgba(255,220,200,.25)",letterSpacing:".12em",textTransform:"uppercase"}}>Need more clarity?</span>
           <div style={{display:"flex",gap:10}}>
             <button className="opt" onClick={()=>bo(3)}>Best of 3</button>
             <button className="opt" onClick={()=>bo(5)}>Best of 5</button>
@@ -989,8 +1113,8 @@ export default function App() {
       {/* After bo5 */}
       {fin&&mode===5&&(
         <div style={{textAlign:"center",animation:"fadeIn .6s ease .5s both",zIndex:2,marginBottom:14,maxWidth:380}}>
-          <p style={{fontFamily:"'Newsreader',Georgia,serif",fontSize:15,color:"rgba(255,220,200,.4)",fontStyle:"italic",lineHeight:1.7,margin:0}}>
-            Five signs. You pulled from every corner of the cultural universe. You already knew before you opened this. Trust yourself.
+          <p style={{fontFamily:"'Cormorant Garamond',Georgia,serif",fontSize:17,fontWeight:300,color:"rgba(255,220,200,.4)",fontStyle:"italic",lineHeight:1.8,margin:0}}>
+            Five signs from across the veil. The universe spoke — five times it spoke. The answer was inside you before you asked. Trust what you feel. Go.
           </p>
         </div>
       )}
@@ -998,7 +1122,7 @@ export default function App() {
       {/* After bo3 */}
       {fin&&mode===3&&(
         <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:10,animation:"fadeIn .5s ease .5s both",zIndex:2}}>
-          <span style={{fontFamily:"'Azeret Mono',monospace",fontSize:9,color:"rgba(232,115,74,.2)",letterSpacing:".15em",textTransform:"uppercase"}}>Still uncertain?</span>
+          <span style={{fontFamily:"'Raleway',sans-serif",fontSize:11,fontWeight:300,color:"rgba(255,220,200,.25)",letterSpacing:".12em",textTransform:"uppercase"}}>Still uncertain?</span>
           <button className="opt" onClick={()=>{setMode(5);setFin(null);setPh("idle")}}>Best of 5</button>
         </div>
       )}
