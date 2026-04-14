@@ -813,7 +813,7 @@ export default function App() {
       // Branding
       ctx.fillStyle = "rgba(232,115,74,0.2)";
       ctx.font = "italic 14px 'Cormorant Garamond', Georgia, serif";
-      ctx.fillText("givemeasign.app", 300, 350);
+      ctx.fillText("give-a-sign.vercel.app", 300, 355);
 
       // Stars decoration
       ctx.fillStyle = "rgba(232,115,74,0.3)";
@@ -828,7 +828,7 @@ export default function App() {
       if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({
           title: "Give Me a Sign",
-          text: `"${sign.text}" — ${sign.source}`,
+          text: `"${sign.text}" — ${sign.source}\n\nNeed a sign? → give-a-sign.vercel.app`,
           files: [file],
         });
         setShareStatus("shared");
@@ -842,7 +842,7 @@ export default function App() {
     } catch (e) {
       // If clipboard fails, try text-only
       try {
-        await navigator.clipboard.writeText(`"${sign.text}" — ${sign.source}\n\ngivemeasign.app`);
+        await navigator.clipboard.writeText(`"${sign.text}" — ${sign.source}\n\nNeed a sign? → give-a-sign.vercel.app`);
         setShareStatus("copied");
       } catch {
         setShareStatus(null);
