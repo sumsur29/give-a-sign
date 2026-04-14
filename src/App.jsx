@@ -1034,9 +1034,9 @@ export default function App() {
       {ph!=="done"&&(
         <div style={{zIndex:2,marginBottom:20,display:"flex",flexDirection:"column",alignItems:"center",gap:16}}>
           {/* Wrapper for orb + sacred geometry */}
-          <div style={{position:"relative",width:320,height:320,display:"flex",alignItems:"center",justifyContent:"center"}}>
+          <div style={{position:"relative",width:"clamp(340px, 50vw, 460px)",height:"clamp(340px, 50vw, 460px)",display:"flex",alignItems:"center",justifyContent:"center"}}>
             {/* Sacred geometry — centered behind orb */}
-            <svg style={{position:"absolute",width:320,height:320,pointerEvents:"none"}} viewBox="0 0 320 320">
+            <svg style={{position:"absolute",width:"100%",height:"100%",pointerEvents:"none"}} viewBox="0 0 320 320">
               <circle cx="160" cy="160" r="150" fill="none" stroke="#e8734a" strokeWidth=".4" opacity=".05">
                 <animateTransform attributeName="transform" type="rotate" values="0 160 160;360 160 160" dur="120s" repeatCount="indefinite"/>
               </circle>
@@ -1061,14 +1061,14 @@ export default function App() {
               onTouchStart={ph!=="ch"?(e)=>{e.preventDefault();startHold()}:undefined}
               onTouchEnd={endHold}
               style={{
-                position:"relative",width:180,height:180,cursor:ph==="ch"?"not-allowed":"pointer",
+                position:"relative",width:"clamp(200px, 28vw, 260px)",height:"clamp(200px, 28vw, 260px)",cursor:ph==="ch"?"not-allowed":"pointer",
                 display:"flex",alignItems:"center",justifyContent:"center",
                 userSelect:"none",WebkitUserSelect:"none",WebkitTouchCallout:"none",
                 opacity:ph==="ch"?.4:1,transition:"opacity .4s ease",
               }}
             >
             {/* Main progress ring — always visible */}
-            <svg style={{position:"absolute",width:180,height:180,transform:"rotate(-90deg)"}} viewBox="0 0 180 180">
+            <svg style={{position:"absolute",width:"100%",height:"100%",transform:"rotate(-90deg)"}} viewBox="0 0 180 180">
               {/* Track */}
               <circle cx="90" cy="90" r="84" fill="none" stroke="rgba(232,115,74,.1)" strokeWidth="2"/>
               {/* Progress fill */}
@@ -1095,7 +1095,7 @@ export default function App() {
             </div>
             {/* ── 3D GLASS ORB — AMETHYST ── */}
             <div style={{
-              width:120,height:120,borderRadius:"50%",position:"relative",
+              width:"clamp(140px, 20vw, 190px)",height:"clamp(140px, 20vw, 190px)",borderRadius:"50%",position:"relative",
               background:holding
                 ?`radial-gradient(circle at 36% 30%, rgba(255,190,150,${.16+holdProgress*.2}) 0%, rgba(232,115,74,${.1+holdProgress*.15}) 25%, rgba(160,65,30,${.08+holdProgress*.1}) 55%, rgba(50,20,8,.55) 100%)`
                 :"radial-gradient(circle at 36% 30%, rgba(255,190,150,.12) 0%, rgba(232,115,74,.08) 25%, rgba(160,65,30,.06) 55%, rgba(50,20,8,.5) 100%)",
@@ -1127,7 +1127,7 @@ export default function App() {
                 pointerEvents:"none"}}/>}
               {/* Label — BOLD */}
               <span style={{
-                fontFamily:"'Cinzel',serif",fontSize:10,fontWeight:600,
+                fontFamily:"'Cinzel',serif",fontSize:"clamp(11px, 1.4vw, 14px)",fontWeight:600,
                 color:holding?`rgba(255,210,180,${.5+holdProgress*.5})`:"rgba(255,210,180,.55)",
                 letterSpacing:".12em",textTransform:"uppercase",textAlign:"center",lineHeight:1.5,
                 position:"relative",zIndex:1,
