@@ -727,10 +727,7 @@ export default function App() {
   useEffect(()=>{
     if(ph==="show"&&sign&&mode){
       const u=[...rds,{...sign}];setRds(u);
-      const y=u.filter(r=>r.verdict==="yes").length;
-      const n=u.filter(r=>r.verdict==="no").length;
-      const m=Math.ceil(mode/2);
-      if(y>=m||n>=m)setTimeout(()=>{setPh("done");setFin(y>=m?"yes":"no")},2200);
+      if(u.length>=mode)setTimeout(()=>{setPh("done");setFin("done")},2200);
     }
   },[ph,sign]);
 
@@ -762,20 +759,21 @@ export default function App() {
       `}</style>
 
       {/* Header */}
-      <div style={{textAlign:"center",marginBottom:ph==="idle"&&!mode?56:28,zIndex:2,animation:"fadeIn 1s ease",transition:"margin .6s ease"}}>
-        <div style={{fontSize:9,fontFamily:"'Azeret Mono',monospace",fontWeight:300,letterSpacing:".5em",textTransform:"uppercase",color:"rgba(232,115,74,.3)",marginBottom:14}}>
-          ◆ Signs are everywhere ◆
+      <div style={{textAlign:"center",marginBottom:ph==="idle"&&!mode?56:28,zIndex:2,animation:"fadeIn 1s ease",transition:"margin .6s ease",width:"100%",maxWidth:600,display:"flex",flexDirection:"column",alignItems:"center"}}>
+        <div style={{fontSize:10,fontFamily:"'Azeret Mono',monospace",fontWeight:400,letterSpacing:".4em",textTransform:"uppercase",color:"rgba(255,220,200,.35)",marginBottom:14,width:"100%"}}>
+          ◆ What's the universe telling you? ◆
         </div>
         <h1 style={{
           fontSize:ph==="idle"&&!mode?"clamp(36px,9vw,58px)":"clamp(26px,6vw,38px)",
-          fontFamily:"'Newsreader',Georgia,serif",fontWeight:700,fontStyle:"italic",margin:0,
+          fontFamily:"'Newsreader',Georgia,serif",fontWeight:700,fontStyle:"italic",margin:"0 auto",
           background:"linear-gradient(135deg,#f0ebe4 0%,#e8734a 40%,#f0ebe4 80%)",
           backgroundSize:"200% auto",backgroundClip:"text",WebkitBackgroundClip:"text",color:"transparent",
           lineHeight:1.15,animation:"shimmer 4s linear infinite",transition:"font-size .6s ease",
+          textAlign:"center",width:"100%",
         }}>Give Me a Sign</h1>
         {ph==="idle"&&!mode&&(
-          <p style={{fontSize:13,fontFamily:"'Azeret Mono',monospace",fontWeight:400,color:"rgba(210,180,160,.45)",marginTop:18,letterSpacing:".05em",lineHeight:1.9,maxWidth:340,textAlign:"center",animation:"fadeIn 1.5s ease .3s both"}}>
-            you already know the answer — you just need to hear it from somewhere else
+          <p style={{fontSize:13,fontFamily:"'Azeret Mono',monospace",fontWeight:400,color:"rgba(255,220,200,.4)",marginTop:18,letterSpacing:".04em",lineHeight:1.8,textAlign:"center",margin:"18px auto 0",maxWidth:360}}>
+            you already know the answer —<br/>you just need to hear it from somewhere else
           </p>
         )}
       </div>
@@ -785,8 +783,8 @@ export default function App() {
         <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:18,animation:"fadeIn .4s ease",zIndex:2}}>
           <span style={{fontFamily:"'Azeret Mono',monospace",fontSize:9,color:"rgba(232,115,74,.3)",letterSpacing:".2em",textTransform:"uppercase"}}>Best of {mode}</span>
           <div style={{display:"flex",gap:5,alignItems:"center"}}>
-            {rds.map((r,i)=><Dot key={i} v={r.verdict} on/>)}
-            {Array.from({length:Math.max(0,mode-rds.length)}).map((_,i)=><Dot key={`e${i}`} on={false}/>)}
+            {rds.map((_,i)=><div key={i} style={{width:12,height:12,borderRadius:"50%",background:"rgba(232,115,74,.5)",boxShadow:"0 0 8px rgba(232,115,74,.3)",transition:"all .4s ease"}}/>)}
+            {Array.from({length:Math.max(0,mode-rds.length)}).map((_,i)=><div key={`e${i}`} style={{width:8,height:8,borderRadius:"50%",background:"rgba(255,255,255,.08)",transition:"all .4s ease"}}/>)}
           </div>
         </div>
       )}
@@ -826,18 +824,20 @@ export default function App() {
         </div>
       )}
 
-      {/* Final */}
+      {/* Final — no verdict, let them interpret */}
       {fin&&(
         <div style={{
           maxWidth:420,width:"100%",padding:"40px 28px",
-          border:`1px solid ${fin==="yes"?"rgba(110,231,183,.15)":"rgba(252,165,165,.15)"}`,
+          border:"1px solid rgba(232,115,74,.12)",
           borderRadius:16,textAlign:"center",animation:"fadeIn .6s ease",zIndex:2,marginBottom:20,
-          background:fin==="yes"?"radial-gradient(ellipse at center,rgba(110,231,183,.04),transparent 70%)":"radial-gradient(ellipse at center,rgba(252,165,165,.04),transparent 70%)",
+          background:"radial-gradient(ellipse at center,rgba(232,115,74,.04),transparent 70%)",
         }}>
-          <div style={{fontSize:9,fontFamily:"'Azeret Mono',monospace",color:"rgba(232,115,74,.3)",letterSpacing:".3em",textTransform:"uppercase",marginBottom:20}}>The signs have spoken</div>
-          <h2 style={{fontSize:42,fontFamily:"'Newsreader',Georgia,serif",fontStyle:"italic",fontWeight:700,color:fin==="yes"?"#6ee7b7":"#fca5a5",margin:"0 0 18px 0"}}>{fin==="yes"?"Yes":"No"}</h2>
-          <div style={{display:"flex",gap:5,justifyContent:"center",marginBottom:14}}>{rds.map((r,i)=><Dot key={i} v={r.verdict} on/>)}</div>
-          <p style={{fontFamily:"'Azeret Mono',monospace",fontSize:10,color:"rgba(232,115,74,.2)",letterSpacing:".1em"}}>{rds.length} signs · {yC} aligned · {nC} resisted</p>
+          <div style={{fontSize:9,fontFamily:"'Azeret Mono',monospace",color:"rgba(255,220,200,.35)",letterSpacing:".3em",textTransform:"uppercase",marginBottom:20}}>The signs have spoken</div>
+          <h2 style={{fontSize:28,fontFamily:"'Newsreader',Georgia,serif",fontStyle:"italic",fontWeight:700,color:"#f0ebe4",margin:"0 0 18px 0"}}>Now you decide.</h2>
+          <div style={{display:"flex",gap:6,justifyContent:"center",marginBottom:14}}>
+            {rds.map((_,i)=><div key={i} style={{width:10,height:10,borderRadius:"50%",background:"rgba(232,115,74,.35)",boxShadow:"0 0 6px rgba(232,115,74,.2)"}}/>)}
+          </div>
+          <p style={{fontFamily:"'Azeret Mono',monospace",fontSize:10,color:"rgba(255,220,200,.25)",letterSpacing:".1em"}}>{rds.length} signs channeled</p>
         </div>
       )}
 
@@ -864,8 +864,8 @@ export default function App() {
       {/* After bo5 */}
       {fin&&mode===5&&(
         <div style={{textAlign:"center",animation:"fadeIn .6s ease .5s both",zIndex:2,marginBottom:14,maxWidth:380}}>
-          <p style={{fontFamily:"'Newsreader',Georgia,serif",fontSize:15,color:"rgba(232,115,74,.5)",fontStyle:"italic",lineHeight:1.7,margin:0}}>
-            Five signs. You pulled from every corner of the cultural universe. You already knew. You knew before you opened this. Go.
+          <p style={{fontFamily:"'Newsreader',Georgia,serif",fontSize:15,color:"rgba(255,220,200,.4)",fontStyle:"italic",lineHeight:1.7,margin:0}}>
+            Five signs. You pulled from every corner of the cultural universe. You already knew before you opened this. Trust yourself.
           </p>
         </div>
       )}
