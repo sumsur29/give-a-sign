@@ -793,8 +793,8 @@ export default function App() {
 
       {/* Header */}
       <div style={{textAlign:"center",marginBottom:ph==="idle"&&!mode?56:28,zIndex:2,animation:"fadeIn 1s ease",transition:"margin .6s ease",width:"100%",maxWidth:600,display:"flex",flexDirection:"column",alignItems:"center"}}>
-        <div style={{fontSize:10,fontFamily:"'Azeret Mono',monospace",fontWeight:400,letterSpacing:".4em",textTransform:"uppercase",color:"rgba(255,220,200,.35)",marginBottom:14,width:"100%"}}>
-          ◆ What's the universe telling you? ◆
+        <div style={{fontSize:10,fontFamily:"'Azeret Mono',monospace",fontWeight:400,letterSpacing:".4em",textTransform:"uppercase",color:"rgba(255,220,200,.35)",marginBottom:14,whiteSpace:"nowrap"}}>
+          ◆&nbsp;What's the universe telling you?&nbsp;◆
         </div>
         <h1 style={{
           fontSize:ph==="idle"&&!mode?"clamp(36px,9vw,58px)":"clamp(26px,6vw,38px)",
@@ -893,7 +893,7 @@ export default function App() {
             {/* Main progress ring — always visible */}
             <svg style={{position:"absolute",width:180,height:180,transform:"rotate(-90deg)"}} viewBox="0 0 180 180">
               {/* Track */}
-              <circle cx="90" cy="90" r="84" fill="none" stroke="rgba(232,115,74,.08)" strokeWidth="2"/>
+              <circle cx="90" cy="90" r="84" fill="none" stroke="rgba(232,115,74,.1)" strokeWidth="2"/>
               {/* Progress fill */}
               <circle cx="90" cy="90" r="84" fill="none" stroke="#e8734a" strokeWidth={holding?"3":"0"}
                 strokeDasharray={`${holdProgress * 528} 528`}
@@ -909,37 +909,54 @@ export default function App() {
             </svg>
             {/* Outer decorative rotating ring */}
             <div style={{
-              position:"absolute",inset:8,borderRadius:"50%",
-              border:"1px solid rgba(232,115,74,.06)",
+              position:"absolute",inset:6,borderRadius:"50%",
+              border:"1px solid rgba(232,115,74,.08)",
               animation:holding?"ringRotate 2s linear infinite":"ringRotate 12s linear infinite",
-              transition:"animation .3s ease",
             }}>
               <div style={{position:"absolute",top:-2,left:"50%",marginLeft:-2,width:4,height:4,borderRadius:"50%",background:"#e8734a",opacity:holding?.8:.4}}/>
               <div style={{position:"absolute",bottom:-2,left:"50%",marginLeft:-2,width:3,height:3,borderRadius:"50%",background:"#e8734a",opacity:.2}}/>
             </div>
-            {/* Inner orb */}
+            {/* ── 3D GLASS ORB — AMETHYST ── */}
             <div style={{
-              width:110,height:110,borderRadius:"50%",
+              width:120,height:120,borderRadius:"50%",position:"relative",
               background:holding
-                ?`radial-gradient(circle at 40% 35%, rgba(232,115,74,${.1+holdProgress*.25}) 0%, rgba(232,115,74,${.04+holdProgress*.12}) 50%, transparent 100%)`
-                :"radial-gradient(circle at 40% 35%, rgba(232,115,74,.12) 0%, rgba(232,115,74,.04) 50%, transparent 100%)",
-              border:`1px solid rgba(232,115,74,${holding?.15+holdProgress*.2:.1})`,
-              display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column",gap:4,
-              animation:!holding&&ph==="idle"?"orbPulse 3s ease-in-out infinite":"none",
-              transition:"all .2s ease",
-              transform:holding?`scale(${0.95 + holdProgress * 0.1})`:"scale(1)",
+                ?`radial-gradient(circle at 36% 30%, rgba(255,190,150,${.16+holdProgress*.2}) 0%, rgba(232,115,74,${.1+holdProgress*.15}) 25%, rgba(160,65,30,${.08+holdProgress*.1}) 55%, rgba(50,20,8,.55) 100%)`
+                :"radial-gradient(circle at 36% 30%, rgba(255,190,150,.12) 0%, rgba(232,115,74,.08) 25%, rgba(160,65,30,.06) 55%, rgba(50,20,8,.5) 100%)",
               boxShadow:holding
-                ?`0 0 ${20+holdProgress*40}px rgba(232,115,74,${.1+holdProgress*.3}), inset 0 0 ${holdProgress*30}px rgba(232,115,74,${holdProgress*.15})`
-                :"0 0 20px rgba(232,115,74,.08)",
+                ?`0 10px 40px rgba(0,0,0,.6), 0 4px 16px rgba(0,0,0,.4), 0 0 ${20+holdProgress*50}px rgba(232,115,74,${.1+holdProgress*.3}), inset 0 -6px 16px rgba(0,0,0,.35), inset 0 4px 10px rgba(255,190,150,${.04+holdProgress*.1})`
+                :"0 10px 40px rgba(0,0,0,.5), 0 4px 16px rgba(0,0,0,.3), 0 0 20px rgba(232,115,74,.06), inset 0 -6px 16px rgba(0,0,0,.3), inset 0 4px 10px rgba(255,190,150,.04)",
+              border:"1px solid rgba(232,115,74,.08)",
+              display:"flex",alignItems:"center",justifyContent:"center",
+              animation:!holding&&ph==="idle"?"orbPulse 3s ease-in-out infinite":"none",
+              transition:"all .25s ease",
+              transform:holding?`scale(${0.95 + holdProgress * 0.1})`:"scale(1)",
+              cursor:"pointer",overflow:"hidden",
             }}>
-              {/* Label only — no numbers */}
+              {/* Glass specular highlight — top-left */}
+              <div style={{position:"absolute",top:10,left:14,width:50,height:32,borderRadius:"50%",
+                background:"radial-gradient(ellipse, rgba(255,210,180,.18) 0%, rgba(255,210,180,.05) 50%, transparent 100%)",
+                transform:"rotate(-25deg)",opacity:holding?(.5+holdProgress*.5):.45,transition:"opacity .2s",pointerEvents:"none"}}/>
+              {/* Tight specular dot */}
+              <div style={{position:"absolute",top:18,left:28,width:20,height:12,borderRadius:"50%",
+                background:"radial-gradient(ellipse, rgba(255,255,255,.12) 0%, transparent 100%)",
+                transform:"rotate(-25deg)",pointerEvents:"none"}}/>
+              {/* Bottom rim light */}
+              <div style={{position:"absolute",bottom:6,right:12,width:36,height:18,borderRadius:"50%",
+                background:"radial-gradient(ellipse, rgba(232,115,74,.06) 0%, transparent 80%)",
+                transform:"rotate(15deg)",pointerEvents:"none"}}/>
+              {/* Inner glow on hold */}
+              {holding&&<div style={{position:"absolute",inset:0,borderRadius:"50%",
+                background:`radial-gradient(circle at 50% 55%, rgba(232,115,74,${holdProgress*.25}) 0%, transparent 55%)`,
+                pointerEvents:"none"}}/>}
+              {/* Label — BOLD */}
               <span style={{
-                fontFamily:"'Azeret Mono',monospace",fontSize:10,fontWeight:400,
-                color:holding?`rgba(232,115,74,${.5+holdProgress*.4})`:"rgba(232,115,74,.6)",
-                letterSpacing:".1em",textTransform:"uppercase",
-                textAlign:"center",lineHeight:1.5,
+                fontFamily:"'Azeret Mono',monospace",fontSize:10,fontWeight:700,
+                color:holding?`rgba(255,210,180,${.5+holdProgress*.5})`:"rgba(255,210,180,.55)",
+                letterSpacing:".12em",textTransform:"uppercase",textAlign:"center",lineHeight:1.5,
+                position:"relative",zIndex:1,
+                textShadow:holding?`0 0 ${8+holdProgress*12}px rgba(232,115,74,${holdProgress*.5})`:"0 1px 3px rgba(0,0,0,.4)",
+                transition:"all .2s ease",
                 animation:!holding&&ph==="idle"?"textGlow 3s ease-in-out infinite":"none",
-                transition:"color .2s ease",
               }}>
                 {ph==="ch"?"◌ ◌ ◌":holding?"channeling":mode&&rds.length>0?<>Sign<br/>{rds.length+1} of {mode}</>:<>Ask the<br/>Universe</>}
               </span>
