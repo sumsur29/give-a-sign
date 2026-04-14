@@ -774,8 +774,8 @@ export default function App() {
           lineHeight:1.15,animation:"shimmer 4s linear infinite",transition:"font-size .6s ease",
         }}>Give Me a Sign</h1>
         {ph==="idle"&&!mode&&(
-          <p style={{fontSize:12,fontFamily:"'Azeret Mono',monospace",fontWeight:300,color:"rgba(232,115,74,.2)",marginTop:16,letterSpacing:".06em",lineHeight:1.8,maxWidth:320,animation:"fadeIn 1.5s ease .3s both"}}>
-            you already know the answer<br/>you just need to hear it from somewhere else
+          <p style={{fontSize:13,fontFamily:"'Azeret Mono',monospace",fontWeight:400,color:"rgba(210,180,160,.45)",marginTop:18,letterSpacing:".05em",lineHeight:1.9,maxWidth:340,textAlign:"center",animation:"fadeIn 1.5s ease .3s both"}}>
+            you already know the answer — you just need to hear it from somewhere else
           </p>
         )}
       </div>
