@@ -790,30 +790,30 @@ export default function App() {
 
       // Quote
       ctx.fillStyle = "#f0ebe4";
-      ctx.font = "italic 22px 'Cormorant Garamond', Georgia, serif";
+      ctx.font = "italic 28px 'Cormorant Garamond', Georgia, serif";
       ctx.textAlign = "center";
       const quoteText = `"${sign.text}"`;
       const words = quoteText.split(" ");
       let lines = []; let line = "";
       for (const word of words) {
         const test = line + word + " ";
-        if (ctx.measureText(test).width > 460 && line) { lines.push(line.trim()); line = word + " "; }
+        if (ctx.measureText(test).width > 440 && line) { lines.push(line.trim()); line = word + " "; }
         else { line = test; }
       }
       lines.push(line.trim());
-      const startY = 160 - (lines.length * 15);
-      lines.forEach((l, i) => { ctx.fillText(l, 300, startY + i * 32); });
+      const startY = 170 - (lines.length * 18);
+      lines.forEach((l, i) => { ctx.fillText(l, 300, startY + i * 38); });
 
       // Source
-      ctx.fillStyle = "rgba(232,115,74,0.55)";
-      ctx.font = "400 12px 'Cinzel', serif";
-      ctx.letterSpacing = "2px";
-      ctx.fillText(`— ${sign.source}`, 300, startY + lines.length * 32 + 24);
+      ctx.fillStyle = "rgba(232,115,74,0.65)";
+      ctx.font = "400 15px 'Cinzel', serif";
+      ctx.letterSpacing = "3px";
+      ctx.fillText(`— ${sign.source}`, 300, startY + lines.length * 38 + 30);
 
       // Branding
-      ctx.fillStyle = "rgba(232,115,74,0.2)";
-      ctx.font = "italic 14px 'Cormorant Garamond', Georgia, serif";
-      ctx.fillText("give-a-sign.vercel.app", 300, 355);
+      ctx.fillStyle = "rgba(232,115,74,0.4)";
+      ctx.font = "italic 16px 'Cormorant Garamond', Georgia, serif";
+      ctx.fillText("give-a-sign.vercel.app", 300, 360);
 
       // Stars decoration
       ctx.fillStyle = "rgba(232,115,74,0.3)";
