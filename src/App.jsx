@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 // ══════════════════════════════════════════════════════════════
 // 500 SIGNS: [text, source, type, verdict]
@@ -1295,6 +1296,7 @@ export default function App() {
           <button className="rst" onClick={reset}>↻ channel again</button>
         </div>
       )}
+      <Analytics />
     </div>
   );
 }
